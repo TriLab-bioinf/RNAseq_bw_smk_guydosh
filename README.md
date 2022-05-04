@@ -6,7 +6,7 @@ Schematic representation of the Bulk RNAseq processing pipeline.
 
 ## To build conda environment and install required tools run the following command:
 ```
-mamba env create -f=environment_bbtools.yml -n rnaseq
+mamba env create -f=environment.yml -n rnaseq
 ```
 See environment.yml file for tool versions
 
