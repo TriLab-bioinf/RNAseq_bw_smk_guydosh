@@ -1,8 +1,6 @@
 # Bulk RNAseq processing pipeline
 Bulk RNAseq workflow for Biowulf based on STAR read mapper.
 
-![image](https://user-images.githubusercontent.com/76788039/156809996-d634a2a6-7151-4f71-93ee-55bbb14863c2.png)
-Schematic representation of the Bulk RNAseq processing pipeline.
 
 ## To build conda environment and install required tools run the following command:
 ```
