@@ -10,10 +10,16 @@ mamba env create -f=environment.yml -n rnaseq
 ```
 See environment.yml file for tool versions
 
+## To make a dry run of the entire snakemake pipeline
+```
+conda activate rnaseq
+snakemake --profile slurm Snakefile -p -n 
+```
+
 ## To run the entire snakemake pipeline
 ```
 conda activate rnaseq
-snakemake --profile slurm Snakefile
+snakemake --profile slurm Snakefile -p
 ```
 
 ## To run a specific rule within the pipeline
