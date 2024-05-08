@@ -10,6 +10,11 @@ mamba env create -f=environment.yml -n rnaseq
 ```
 See environment.yml file for tool versions
 
+## Generate a profile directory following the instructions here
+```
+https://github.com/NIH-HPC/snakemake_profile/tree/main
+```
+
 ## To make a dry run of the entire snakemake pipeline
 ```
 conda activate rnaseq
