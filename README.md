@@ -20,6 +20,7 @@ https://github.com/NIH-HPC/snakemake_profile/tree/main
 conda activate rnaseq
 snakemake --profile slurm Snakefile -p -n 
 ```
+Where *slurm*  is the name of the directory containing your profile 
 
 ## To run the entire snakemake pipeline
 ```
