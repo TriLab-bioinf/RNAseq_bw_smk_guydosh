@@ -14,6 +14,8 @@ samples = config["samples"].keys()
 genome = config["reference"]["genome_file"]
 annotation = config["reference"]["ensembl_gtf"]
 starOverhang = config["star_db"]["sjdbOverhang"]
+starIndex = config["star_db"]["star_index"]
+removeDupReads = config["remove_duplicated_reads"]
 
 # Functions
 def get_fq1(wildcards):
@@ -34,7 +36,6 @@ rule all:
 rule trimming:
     input:  fq1 = get_fq1,
             fq2 = get_fq2
-
     output:
             fq1P = "results/01trim/{sample}.1P.fastq.gz",
             fq2P = "results/01trim/{sample}.2P.fastq.gz",
@@ -107,7 +108,7 @@ rule make_star_index:
         gres = "lscratch:20"
     threads: 16
     params: so = f"{starOverhang}",
-            db_dir = "data/00ref"
+            db_dir = f"{starIndex}"
     shell:
         """
             STAR --runMode genomeGenerate \
@@ -134,7 +135,7 @@ rule map_reads:
         gres = "lscratch:20"
     benchmark:
         "benchmarks/map_reads/{sample}.tsv"
-    params: genome_dir = "data/00ref",
+    params: genome_dir = f"{starIndex}",
             prefix = "results/03map_reads/{sample}."
     shell:
         """
@@ -157,7 +158,7 @@ rule map_reads:
 rule remove_duplicates:
     input: "results/03map_reads/{sample}.Aligned.sortedByCoord.out.bam"
     output: "results/04dedup/{sample}.sorted.dedup.bam"
-    params: "READ_NAME_REGEX=null REMOVE_DUPLICATES=true"
+    params: f"READ_NAME_REGEX=null REMOVE_DUPLICATES={removeDupReads}"
     log: "results/04dedup/{sample}.sorted.dedup.metrics.txt"
     benchmark:
         "benchmarks/remove_duplicates/{sample}.tsv"
